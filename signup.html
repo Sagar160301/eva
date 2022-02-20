@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    `<form action="">
+        <input type="text" id="name" placeholder="Enter your name">
+        <input type="email" name="" id="email" placeholder="Enter your email">
+        <input type="password" name="" id="password" , placeholder="Enter your password">
+        <input type="text" name="" id="username" placeholder="Enter your username">
+        <input type="number" name="" id="mobile" placeholder="Enter your number">
+        <textarea name="" id="description" cols="30" placeholder="Enter something here" rows="10"></textarea>
+        <input type="submit" value="Register now">
+    </form>
+</body>
+
+</html>
+
+<script type="module">
+    // let url = https://masai-api-mocker.herokuapp.com
+    import { fetchData } from "./scripts/data.js"
+
+
+
+    const register = async () => {
+
+        try {
+            let user = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value,
+                username: document.getElementById("username").value,
+                mobile: document.getElementById("mobile").value,
+                description: document.getElementById("description").value
+            }
+
+            user = JSON.stringify(user)
+
+            let url = fetch("https://masai-api-mocker.herokuapp.com/auth/register", {
+                method: "POST",
+                body: user,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+
+            })
+            let data = await fetchData(url)
+            window.location.href = "login.html"
+            console.log(data)
+        }
+        catch (err) {
+            console.log("err", err)
+        }
+
+
+    }
+    document.querySelector("form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        register();
+    })
+</script>

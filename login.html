@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+
+<body>
+
+    <form action="">
+        <input type="text" id="username" placeholder="enter your user name">
+        <input type="password" name="" id="password" placeholder="enter your password">
+        <input type="submit" value="login">
+    </form>
+
+</body>
+
+</html>
+
+<script type="module">
+
+    import { fetchData } from "./scripts/data.js"
+
+    const loginData = async () => {
+        try {
+            let obj = {
+                username: document.getElementById("username").value,
+                password: document.getElementById("password").value
+            }
+
+            let user = JSON.stringify(obj)
+
+            let url = fetch("https://masai-api-mocker.herokuapp.com/auth/login", {
+                method: "POST",
+                body: user,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            let res = await fetchData(url)
+            // let data = await res.json()
+
+            console.log(res)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
+
+
+
+    document.querySelector("form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        loginData();
+    })
+</script>
