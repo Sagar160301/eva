@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unsplash</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            display: grid;
+            grid-template-columns: 2fr 10fr;
+        }
+
+        #main {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            margin-top: 20px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="sidebar">
+            <!--DO NOT CHANGE THIS ID's-->
+            <!--Append the horizontal navbar(sidebar) here only-->
+
+
+        </div>
+
+        <div id="main">
+            <!--DO NOT CHANGE THIS ID's-->
+            <!--Append top images here only-->
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script type="module">
+    // let url="https://api.unsplash.com/photos/?client_id=YOUR_ACCESS_KEY"
+    import { navbar } from "./components/navbar.js"
+
+    import { fetchData, appendData } from "./components/main.js"
+
+    let nav = document.getElementById("sidebar")
+
+    nav.innerHTML = navbar()
+
+    let url = fetch("https://api.unsplash.com/photos/?client_id=W-Q_2-xTiLwX8zizyjlzPHRR96a6rEiIhUV5oM-cTj0")
+
+    let res = await fetchData(url)
+    // console.log(res)
+
+    let parent = document.getElementById("main")
+    parent.innerText = ""
+    appendData(res, parent)
+
+
+    document.getElementById("search").addEventListener("keypress", (e) => {
+
+        if (e.key == "Enter") {
+            let value = document.getElementById("search").value
+            localStorage.setItem("search_item", value)
+            window.location.href = "search.html"
+        }
+
+
+    })
+</script>

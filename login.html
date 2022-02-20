@@ -41,7 +41,9 @@
                 }
             })
             let res = await fetchData(url)
-            // let data = await res.json()
+            let data = res.token
+
+            getprofile(data, obj)
 
             console.log(res)
         }
@@ -50,6 +52,30 @@
         }
     }
 
+
+
+
+    const getprofile = async (token, obj) => {
+
+        try {
+            let url = fetch(`https://masai-api-mocker.herokuapp.com/user/${obj.username}`, {
+                method: "GET",
+                // body: obj,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+            let res = await fetchData(url)
+
+            localStorage.setItem("user", JSON.stringify(res))
+            window.location.href = "index.html"
+            // console.log(res)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
 
 
 
